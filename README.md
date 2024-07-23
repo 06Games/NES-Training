@@ -1,4 +1,4 @@
-Some NES programs I made to learn 6502 assembler
+Some NES programs I made to learn 6502 assembly
 
 # Programs
 
