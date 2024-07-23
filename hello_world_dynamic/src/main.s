@@ -74,50 +74,49 @@ enable_rendering:
 
 nmi:
 	cpy #32 ; 4 palettes times 8 frames of delay
-	bne @skip
+	bne :+
 	ldy #0
-	@skip:
-  	ldx #$00 	; Set SPR-RAM address to 0
+:	ldx #$00 	; Set SPR-RAM address to 0
   	stx $2003
 	@draw_loop:	
-		lda #$6c
-		sta $2004
-		lda hello, x 	; Load the hello message into SPR-RAM
-		sta $2004
-		inx
-		tya
-		lsr a
-		lsr a
-		lsr a
-		sta $2004 ; changes each 8 frames
-		lda hello, x
+		lda hello, x ; Get Y coordinate
 		clc
-		adc #$6c
+		adc #$67 ; Center the text by adding 0x67 to the Y coordinate
+		sta $2004 ; Send the value to the PPU-Bus
+		inx
+		lda hello, x ; Get the tile index
 		sta $2004
 		inx
-		cpx #14 ; Hello contains 12 tile definitions of 4 bytes each
+		tya ; Get the frame index to calculate the palette number
+		lsr a
+		lsr a
+		lsr a ; Change the palette each 8 frames
+		sta $2004
+		lda hello, x ; Get X coordinate
+		clc
+		adc #$6c ; Center the text
+		sta $2004
+		inx
+		cpx #72 ; Hello contains 12 tile definitions of 6 bytes each
 		bne @draw_loop
 	iny
   	rti
 
 hello:
-	;   tileI posX
-  .byte $00, 00
-  .byte $00, 00
-  .byte $48, 00
-  .byte $65, 10
-  .byte $6c, 20
-  .byte $6c, 30
-  .byte $6f, 40
-
-world:
-  .byte $00, 00
-  .byte $00, 00
-  .byte $57, 00
-  .byte $6f, 10
-  .byte $72, 20
-  .byte $6c, 30
-  .byte $64, 40
+	;   posY tileI posX
+  .byte 00, $00, 00
+  .byte 00, $00, 00
+  .byte 00, $48, 00
+  .byte 00, $65, 10
+  .byte 00, $6c, 20
+  .byte 00, $6c, 30
+  .byte 00, $6f, 40
+  
+  .byte 10, $57, 00
+  .byte 10, $6f, 10
+  .byte 10, $72, 20
+  .byte 10, $6c, 30
+  .byte 10, $64, 40
 
 ; Palettes (Background + Sprites)
 palettes:
