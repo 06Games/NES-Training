@@ -4,6 +4,7 @@ nmi:
 	ldy #0
 :	ldx #$00 	; Set SPR-RAM address to 0
 	stx $2003
+
 	@draw_loop:	
 		lda hello, x ; Get Y coordinate
 		clc
@@ -23,15 +24,13 @@ nmi:
 		adc #$6c ; Center the text
 		sta $2004
 		inx
-		cpx #36 ; Hello contains 12 tile definitions of 3 bytes each
+		cpx #30 ; Hello contains 12 tile definitions of 3 bytes each
 		bne @draw_loop
 	iny
 	rti
 
 hello:
 	;   posY tileI posX
-  .byte 00, $00, 00
-  .byte 00, $00, 00
   .byte 00, $48, 00
   .byte 00, $65, 10
   .byte 00, $6c, 20
