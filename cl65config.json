@@ -1,4 +1,0 @@
-{
-  "input": "main.s",
-  "params": "--verbose --target nes -o hello_world.nes"
-}
