@@ -2,4 +2,4 @@
 
 # Dynamic Hello World
 
-![preview](https://github.com/user-attachments/assets/49a90287-f9ae-423d-843e-c9a226a05a3b)
+![preview](https://github.com/user-attachments/assets/e9e458d1-ecd6-4cc8-baa9-8dcade80e1d5)
