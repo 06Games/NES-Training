@@ -24,7 +24,7 @@ nmi:
 		adc #$6c ; Center the text
 		sta $2004
 		inx
-		cpx #30 ; Hello contains 12 tile definitions of 3 bytes each
+		cpx #30 ; Hello contains 10 tile definitions of 3 bytes each
 		bne @draw_loop
 	iny
 	rti
